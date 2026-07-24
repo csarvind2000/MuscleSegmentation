@@ -78,3 +78,21 @@ Thumbs.db
 *~
 .vscode/
 .idea/
+
+# ---------------------------------------------------------------------------
+# Revision-round manuscript bundles & submission archives (keep out of code repo)
+# ---------------------------------------------------------------------------
+manuscript_R1_submission/
+manuscript_R2/
+manuscript_R3/
+manuscript_reviewed/
+manuscript_R2.zip
+*.zip
+
+# Third-party copyrighted paper PDF (reference only)
+figures/s10334-025-01308-5.pdf
+
+# Debug / QC scratch images
+figures/qc_*.png
+figures/_*.png
+make_springer.py

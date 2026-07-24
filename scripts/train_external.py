@@ -46,6 +46,17 @@ def build(init, in_ch, nc):
     net = smp.Unet("resnet34", encoder_weights=ew, in_channels=in_ch, classes=nc)
     if init == "ct":
         adapt_ct(net, in_ch)
+    elif init == "ssl":
+        # SSL encoder self-supervised on the target cohort's own unlabelled images.
+        # Encoder was pretrained with 3 input channels (wff); matches in_ch there.
+        sd = torch.load(os.path.join(C.CKPT, "ssl_encoder_ext_wff.pt"), map_location="cpu")
+        tgt = net.encoder.state_dict()
+        for k, v in sd.items():
+            if k in tgt and v.shape == tgt[k].shape:
+                tgt[k] = v
+            elif k in tgt and v.dim() == 4 and v.shape[1] == 3 and tgt[k].shape[1] == in_ch:
+                tgt[k] = v[:, :in_ch]  # allow wf (2ch) reuse of the 3ch SSL stem
+        net.encoder.load_state_dict(tgt)
     return net
 
 
@@ -66,7 +77,7 @@ def per_subject(model, subjects, cache, nc, dev):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--init", required=True, choices=["random", "imagenet", "ct"])
+    ap.add_argument("--init", required=True, choices=["random", "imagenet", "ct", "ssl"])
     ap.add_argument("--channels", required=True, choices=["wf", "wff"])
     ap.add_argument("--n", type=int, default=0)  # 0 = all training subjects
     ap.add_argument("--seed", type=int, default=0)

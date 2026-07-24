@@ -94,8 +94,9 @@ def chip(ax, x, y, w, h, t, fc, ec):
 
 
 def title(ax, letter, txt):
-    ax.text(0.02, 0.97, letter, transform=ax.transAxes, fontsize=15, fontweight="bold", va="top")
-    ax.text(0.11, 0.965, txt, transform=ax.transAxes, fontsize=10.5, fontweight="bold", va="top", color=INK)
+    # panel letter removed; the "Factor N" title identifies each panel
+    ax.text(0.5, 0.965, txt, transform=ax.transAxes, fontsize=10.5, fontweight="bold",
+            va="top", ha="center", color=INK)
 
 
 def main():
@@ -111,27 +112,28 @@ def main():
     L, R, er, dl = hourglass(ax, 2.6, 2.6, w=3.6, H=1.7, hmin=0.6)
     img_at(ax, 8.7, 2.6, 1.3, seg, ec=DEC_E, label="mask")
     arr(ax, (1.75, 2.6), (2.6, 2.6)); arr(ax, (R, 2.6), (8.05, 2.6))
-    ax.text(5.0, 0.7, "backbone  ∈  { U-Net,  U-Net++,  DeepLabV3+,  SegFormer }",
-            ha="center", fontsize=9, color=INK, style="italic", fontweight="bold")
+    ax.text(5.0, 0.7, "backbone  ∈  { U-Net,  U-Net++,  DeepLabV3+,  SegFormer,  HRNet-W18 }",
+            ha="center", fontsize=8.4, color=INK, style="italic", fontweight="bold")
 
     # ---------------- b: pretraining source ----------------
     ax = axs[0, 1]; title(ax, "b", "Factor 2 — encoder pretraining source")
     encx = 3.6
-    L, R, er, dl = hourglass(ax, encx, 2.4, w=3.6, H=1.7, hmin=0.6, enc_label="Encoder", dec_label="Decoder")
-    img_at(ax, 8.9, 2.4, 1.15, seg, ec=DEC_E, label="mask")
-    arr(ax, (R, 2.4), (8.3, 2.4))
-    # three init sources -> encoder left face (only the encoder changes)
-    srcs = [("random", "#e2e8f0", "#718096", 4.15, 3.0),
-            ("ImageNet", ENC, ENC_E, 3.05, 2.4),
-            ("CT-pretrained", FUSE, FUSE_E, 1.95, 1.8)]
+    L, R, er, dl = hourglass(ax, encx, 2.5, w=3.6, H=1.7, hmin=0.6, enc_label="Encoder", dec_label="Decoder")
+    img_at(ax, 8.9, 2.5, 1.15, seg, ec=DEC_E, label="mask")
+    arr(ax, (R, 2.5), (8.3, 2.5))
+    # four init sources -> encoder left face; encoder/decoder/mask centred between the inputs
+    srcs = [("random", "#e2e8f0", "#718096", 3.85, 3.15),
+            ("ImageNet", ENC, ENC_E, 2.95, 2.80),
+            ("CT-pretrained", FUSE, FUSE_E, 2.05, 2.30),
+            ("self-sup. (SSL)", "#f3e8ff", "#7c3aed", 1.15, 1.85)]
     for t, fc, ec, ysrc, ytgt in srcs:
-        chip(ax, 0.5, ysrc - 0.32, 2.0, 0.64, t, fc, ec)
+        chip(ax, 0.5, ysrc - 0.30, 2.0, 0.6, t, fc, ec)
         arr(ax, (2.5, ysrc), (encx, ytgt), color=ec, lw=1.4, ms=11)
     ax.text(5.0, 0.55, "only the encoder initialisation changes", ha="center",
             fontsize=8.6, color=INK, style="italic", fontweight="bold")
 
     # ---------------- c: DixonFuse ----------------
-    ax = axs[1, 0]; title(ax, "c", "Factor 3 — physics-guided input design")
+    ax = axs[1, 0]; title(ax, "c", "Factor 3 — fat-fraction input design")
     names = ["Water", "Fat", "In", "Opp", "FF"]
     for i, nm in enumerate(names):
         y = 3.7 - i * 0.42
@@ -141,10 +143,10 @@ def main():
     ax.text(1.07, 3.95, "5 contrasts", ha="center", fontsize=7.3, color=INK, fontweight="bold")
     chip(ax, 2.15, 2.3, 1.5, 0.9, "contrast\nattention\n(SE gate)", FUSE, FUSE_E)
     arr(ax, (1.65, 2.75), (2.15, 2.75), lw=1.3, ms=10)
-    L, R, er, dl = hourglass(ax, 3.95, 2.55, w=3.3, H=1.6, hmin=0.55, enc_label="Encoder", dec_label="Decoder")
-    arr(ax, (3.65, 2.75), (3.95 + 0.05, 2.6), lw=1.3, ms=10)
-    img_at(ax, 8.9, 2.55, 1.1, seg, ec=DEC_E, label="mask")
-    arr(ax, (R, 2.55), (8.35, 2.55))
+    L, R, er, dl = hourglass(ax, 3.95, 2.75, w=3.3, H=1.6, hmin=0.55, enc_label="Encoder", dec_label="Decoder")
+    arr(ax, (3.65, 2.75), (3.98, 2.75), lw=1.3, ms=10)   # straight horizontal into encoder
+    img_at(ax, 8.9, 2.75, 1.1, seg, ec=DEC_E, label="mask")
+    arr(ax, (R, 2.75), (8.35, 2.75))
     # per-contrast squeeze-and-excitation gate, drawn as an equation
     ax.text(5.0, 1.12, r"$s=\sigma\!\left(W_2\,\delta(W_1\,\mathrm{GAP}(x))\right),\quad \hat{x}=s\odot x$",
             ha="center", fontsize=10, color=INK)
@@ -170,7 +172,8 @@ def main():
         dec = Polygon([(dx0, y - 0.28), (dx0, y + 0.28), (dx1, y + 0.7), (dx1, y - 0.7)],
                       closed=True, facecolor=fc, edgecolor=ec, linewidth=1.3, zorder=3)
         ax.add_patch(dec)
-        ax.text((dx0 + dx1) / 2, y, lab, ha="center", va="center", fontsize=7.2, fontweight="bold", color=ec, rotation=90, zorder=5)
+        ax.text(dx0 + 0.66 * (dx1 - dx0), y, lab, ha="center", va="center", fontsize=6.4,
+                fontweight="bold", color=ec, rotation=90, zorder=5)
         arr(ax, (ex1, ey + (0.35 if y > 2.5 else -0.35)), (dx0, y), lw=1.3, ms=10)
         chip(ax, 7.4, y - 0.28, 1.7, 0.56, mfc, "#eef2f7", "#94a3b8")
         arr(ax, (dx1, y), (7.4, y), lw=1.2, ms=9)

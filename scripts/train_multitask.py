@@ -61,8 +61,9 @@ def main():
     ap.add_argument("--bs", type=int, default=8)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--seed", type=int, default=C.SEED)
     args = ap.parse_args()
-    torch.manual_seed(C.SEED); np.random.seed(C.SEED)
+    torch.manual_seed(args.seed); np.random.seed(args.seed)
     dev = "cuda"
 
     idx = os.path.join(C.CACHE, "aattct_index.csv")
@@ -127,7 +128,8 @@ def main():
                      "test_dice_per_class": [None if np.isnan(x) else round(float(x),4) for x in md],
                      "test_dice_fg_mean": round(float(np.nanmean(md[1:])),4)},
            "minutes": round((time.time()-t0)/60,1)}
-    json.dump(res, open(os.path.join(C.RESULTS, "mtl_shared.json"), "w"), indent=2)
+    _out = "mtl_shared.json" if args.seed == C.SEED else f"mtl_shared_s{args.seed}.json"
+    json.dump(res, open(os.path.join(C.RESULTS, _out), "w"), indent=2)
     print("[MTL] DONE ct", res["aattct"]["test_dice_fg_mean"], "mri", res["thigh"]["test_dice_fg_mean"], flush=True)
 
 

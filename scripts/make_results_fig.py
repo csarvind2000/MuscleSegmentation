@@ -55,7 +55,7 @@ def main():
     curve(ax, dm, [("dixon4", "Dixon four-channel baseline", "#888"),
                    ("dixon5", "Fat-fraction", "#2ca02c"),
                    ("dixonfuse", "Fat-fraction and contrast gate", "#d62728")],
-          "Physics-guided input design")
+          "Fat-fraction input design")
     plt.tight_layout()
     for e in ("png", "pdf"): fig.savefig(os.path.join(C.FIG, f"fig_method.{e}"), dpi=200)
     plt.close()

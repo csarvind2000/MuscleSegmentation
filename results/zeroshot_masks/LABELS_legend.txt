@@ -1,0 +1,17 @@
+Predicted zero-shot masks — HuashanMyo label scheme.
+Overlay <sid>_pred.nii.gz on the original Water/Fat/Label volumes.
+Predictions are in original volume geometry; only the 10 muscles the
+primary model shares with HuashanMyo are emitted (others -> background).
+Note HuashanMyo GT uses 8=BL,11=BB for the two biceps heads; the model
+has a single biceps class, saved here as 8.
+
+1	Sartorius
+2	Rectus femoris
+3	Vastus lateralis
+4	Vastus intermedius
+5	Vastus medialis
+6	Adductor magnus
+7	Gracilis
+8	Biceps femoris (long+short, merged)
+9	Semitendinosus
+10	Semimembranosus

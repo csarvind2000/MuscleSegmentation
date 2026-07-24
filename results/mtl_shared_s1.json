@@ -1,0 +1,53 @@
+{
+  "model": "mtl_shared_resnet34",
+  "epochs": 60,
+  "aattct": {
+    "classes": [
+      "background",
+      "SAT",
+      "VAT"
+    ],
+    "test_dice_per_class": [
+      0.9917,
+      0.961,
+      0.9265
+    ],
+    "test_dice_fg_mean": 0.9437
+  },
+  "thigh": {
+    "classes": [
+      "clear_label",
+      "rectus_femoris",
+      "vastus_lateralis",
+      "vastus_intermedius",
+      "vastus_medialis",
+      "sartorius",
+      "gracilis",
+      "biceps_femoris",
+      "semitendinosus",
+      "semimembranosus",
+      "adductor_brevis",
+      "adductor_longus",
+      "adductor_magnus",
+      "gluteus_maximus"
+    ],
+    "test_dice_per_class": [
+      0.9955,
+      0.9269,
+      0.8564,
+      0.8428,
+      0.8083,
+      0.9289,
+      0.8907,
+      0.8941,
+      0.866,
+      0.849,
+      0.7929,
+      0.7899,
+      0.8578,
+      0.8115
+    ],
+    "test_dice_fg_mean": 0.855
+  },
+  "minutes": 38.3
+}

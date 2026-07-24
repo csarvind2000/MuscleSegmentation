@@ -1,0 +1,20 @@
+{
+  "init": "ssl",
+  "channels": "wff",
+  "n": 8,
+  "seed": 1,
+  "test_dice_fg_mean": 0.6364,
+  "per_subject_dice": {
+    "THIGH_063": 0.5802,
+    "THIGH_049": 0.6824,
+    "THIGH_030": 0.729,
+    "THIGH_026": 0.4991,
+    "THIGH_008": 0.7896,
+    "THIGH_047": 0.6146,
+    "THIGH_058": 0.6981,
+    "THIGH_032": 0.5787,
+    "THIGH_017": 0.5733,
+    "THIGH_050": 0.6192
+  },
+  "minutes": 2.3
+}

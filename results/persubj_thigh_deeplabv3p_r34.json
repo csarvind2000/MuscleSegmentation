@@ -1,0 +1,21 @@
+{
+  "region": "thigh",
+  "model": "deeplabv3p_r34",
+  "protocol": "per-subject volume Dice, held-out",
+  "per_muscle": {
+    "rectus_femoris": 0.947,
+    "vastus_lateralis": 0.9173,
+    "vastus_intermedius": 0.8517,
+    "vastus_medialis": 0.8822,
+    "sartorius": 0.9051,
+    "gracilis": 0.9075,
+    "biceps_femoris": 0.9144,
+    "semitendinosus": 0.8874,
+    "semimembranosus": 0.9009,
+    "adductor_brevis": 0.8529,
+    "adductor_longus": 0.9091,
+    "adductor_magnus": 0.9296,
+    "gluteus_maximus": 0.9269
+  },
+  "fg_mean": 0.9025
+}

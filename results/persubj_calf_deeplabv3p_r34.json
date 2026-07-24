@@ -1,0 +1,17 @@
+{
+  "region": "calf",
+  "model": "deeplabv3p_r34",
+  "protocol": "per-subject volume Dice, held-out",
+  "per_muscle": {
+    "gastrocnemius_medialis": 0.9242,
+    "gastrocnemius_lateralis": 0.9106,
+    "soleus": 0.9074,
+    "flexor_digitorum_longus": 0.6946,
+    "flexor_hallucis_longus": 0.7568,
+    "tibilais_posterior": 0.8532,
+    "peroneus": 0.9129,
+    "tibialis_anterior": 0.9109,
+    "extensor_longus": 0.853
+  },
+  "fg_mean": 0.8582
+}

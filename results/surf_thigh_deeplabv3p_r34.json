@@ -1,0 +1,6 @@
+{
+  "model": "deeplabv3p_r34",
+  "hd95_px": 5.95,
+  "assd_px": 1.57,
+  "sdice2px": 0.875
+}

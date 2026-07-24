@@ -13,10 +13,11 @@ import config as C
 
 # label(1..11) -> short muscle code, confirmed from the HuashanMyo label editor (ITK-SNAP)
 NAMES = ["SA", "RF", "VL", "VI", "VM", "AM", "GR", "BL", "ST", "SM", "BB"]
-FULL = {"BL": "Biceps fem. long", "BB": "Biceps fem. short", "ST": "Semitendinosus",
-        "SM": "Semimembranosus", "AM": "Adductor magnus", "VI": "Vastus interm.",
-        "VL": "Vastus lat.", "VM": "Vastus med.", "RF": "Rectus femoris",
-        "GR": "Gracilis", "SA": "Sartorius"}
+# full anatomical names, two words wrapped onto two lines for the radar axis
+FULL = {"BL": "Biceps femoris\n(long head)", "BB": "Biceps femoris\n(short head)",
+        "ST": "Semitendinosus", "SM": "Semimembranosus", "AM": "Adductor\nmagnus",
+        "VI": "Vastus\nintermedius", "VL": "Vastus\nlateralis", "VM": "Vastus\nmedialis",
+        "RF": "Rectus\nfemoris", "GR": "Gracilis", "SA": "Sartorius"}
 # draw order: group by compartment (quadriceps, hamstrings, adductor/medial) for readability
 ORDER = ["RF", "VL", "VI", "VM", "BL", "BB", "ST", "SM", "AM", "GR", "SA"]
 
@@ -25,7 +26,7 @@ def main():
     d = json.load(open(os.path.join(C.RESULTS, "ext_permuscle_wff_imagenet_n46.json")))
     dice = {NAMES[i - 1]: d["per_class_dice_mean"][i] for i in range(1, d["num_classes"])}
     vals = [dice[m] for m in ORDER]
-    labels = [f"{m}\n{v:.2f}" for m, v in zip(ORDER, vals)]
+    labels = [f"{FULL[m]}\n{v:.2f}" for m, v in zip(ORDER, vals)]
 
     ang = np.linspace(0, 2 * np.pi, len(ORDER), endpoint=False)
     ang_c = np.concatenate([ang, ang[:1]])
@@ -63,11 +64,11 @@ def overlay():
     order = ["RF", "VL", "VI", "VM", "ST", "SM", "AM", "GR", "SA"]   # quads, hams, medial
     iv = [itn[shared[m]] for m in order]
     ev = [ext_d[m] for m in order]
-    labels = [f"{m}\n$\\Delta${itn[shared[m]] - ext_d[m]:+.02f}" for m in order]
+    labels = [f"{FULL[m]}\n$\\Delta${itn[shared[m]] - ext_d[m]:+.02f}" for m in order]
 
     ang = np.linspace(0, 2 * np.pi, len(order), endpoint=False)
     ang_c = np.concatenate([ang, ang[:1]])
-    fig = plt.figure(figsize=(7.2, 7.2))
+    fig = plt.figure(figsize=(8.6, 8.6))
     ax = plt.subplot(111, polar=True)
     ax.set_theta_offset(np.pi / 2); ax.set_theta_direction(-1)
     for vals, col, lab in [(iv, "#d62728", "Primary cohort (U-Net++, full data)"),
@@ -75,7 +76,7 @@ def overlay():
         vc = vals + vals[:1]
         ax.plot(ang_c, vc, "-o", color=col, lw=2, ms=5, label=lab)
         ax.fill(ang_c, vc, color=col, alpha=0.12)
-    ax.set_xticks(ang); ax.set_xticklabels(labels, fontsize=9.5)
+    ax.set_xticks(ang); ax.set_xticklabels(labels, fontsize=9); ax.tick_params(pad=14)
     ax.set_ylim(0.80, 0.97)
     ax.set_yticks([0.83, 0.87, 0.91, 0.95])
     ax.set_yticklabels(["0.83", "0.87", "0.91", "0.95"], fontsize=8, color="gray")

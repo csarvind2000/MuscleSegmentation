@@ -7,6 +7,10 @@ BASELINES = {
     "unetpp_r34":    ("UnetPlusPlus",  "resnet34"),
     "deeplabv3p_r34":("DeepLabV3Plus", "resnet34"),
     "segformer_b1":  ("Segformer",     "mit_b1"),
+    # High-resolution backbone added for the revision (reviewer R2: justify model choice).
+    # DeepLabV3+ is incompatible with HRNet in smp (ASPP needs output-stride support), so
+    # HRNet is paired with the U-Net decoder.
+    "unet_hrnet18":  ("Unet",          "tu-hrnet_w18"),
 }
 
 def build_model(name, in_channels, num_classes, encoder_weights="imagenet"):

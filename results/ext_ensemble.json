@@ -1,0 +1,54 @@
+{
+  "note": "DR + AdaBN + hflip-TTA per model; ensemble = softmax average. Label-free (target images, no labels); no selection tuned on external Dice.",
+  "per_model_dr_adabn_tta": {
+    "unet_r34": {
+      "n": 66,
+      "mean": 0.2965,
+      "sd": 0.1967,
+      "min": 0.004,
+      "max": 0.749
+    },
+    "unetpp_r34": {
+      "n": 66,
+      "mean": 0.2999,
+      "sd": 0.1878,
+      "min": 0.003,
+      "max": 0.778
+    },
+    "deeplabv3p_r34": {
+      "n": 66,
+      "mean": 0.2224,
+      "sd": 0.1772,
+      "min": 0.001,
+      "max": 0.645
+    },
+    "segformer_b1": {
+      "n": 66,
+      "mean": 0.2578,
+      "sd": 0.1706,
+      "min": 0.001,
+      "max": 0.658
+    },
+    "unet_hrnet18": {
+      "n": 66,
+      "mean": 0.2977,
+      "sd": 0.1891,
+      "min": 0.003,
+      "max": 0.78
+    }
+  },
+  "ensemble_all": {
+    "n": 66,
+    "mean": 0.2966,
+    "sd": 0.2101,
+    "min": 0.0,
+    "max": 0.784
+  },
+  "ensemble_resnet_only": {
+    "n": 66,
+    "mean": 0.3006,
+    "sd": 0.21,
+    "min": 0.0,
+    "max": 0.789
+  }
+}

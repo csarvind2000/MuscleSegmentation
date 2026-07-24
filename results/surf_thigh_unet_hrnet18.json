@@ -1,0 +1,6 @@
+{
+  "model": "unet_hrnet18",
+  "hd95_px": 3.3,
+  "assd_px": 0.99,
+  "sdice2px": 0.921
+}

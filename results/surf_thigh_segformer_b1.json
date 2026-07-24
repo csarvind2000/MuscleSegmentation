@@ -1,0 +1,6 @@
+{
+  "model": "segformer_b1",
+  "hd95_px": 3.87,
+  "assd_px": 1.17,
+  "sdice2px": 0.89
+}
