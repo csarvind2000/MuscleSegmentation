@@ -1,0 +1,7 @@
+{
+  "norm": "instancenorm",
+  "seed": 0,
+  "ct_dice_fg": 0.945,
+  "mri_dice_fg": 0.8485,
+  "minutes": 32.8
+}

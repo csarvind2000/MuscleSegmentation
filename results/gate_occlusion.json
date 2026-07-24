@@ -1,0 +1,10 @@
+{
+  "baseline_dice": 0.8415,
+  "dice_drop_when_channel_zeroed": {
+    "Water": 0.6241,
+    "Fat": 0.0093,
+    "In_phase": 0.0749,
+    "Opp_phase": 0.4144,
+    "FatFraction": 0.0099
+  }
+}

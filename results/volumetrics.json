@@ -1,0 +1,96 @@
+{
+  "model": "DixonFuse (ImageNet, N=18)",
+  "n_test_subjects": 5,
+  "overall_vol_mae_ml": 14.46,
+  "overall_vol_rel_err_pct": 5.9,
+  "icc_volume": 0.994,
+  "total_muscle_bland_altman": {
+    "bias_ml": -29.3,
+    "loa95_ml": 102.3
+  },
+  "ff_abs_err_mean": 0.0091,
+  "size_stratified": {
+    "small_muscles_rel_err_pct": 5.7,
+    "large_muscles_rel_err_pct": 6.0
+  },
+  "per_muscle": {
+    "rectus_femoris": {
+      "true_ml_mean": 167.81,
+      "vol_mae_ml": 7.12,
+      "vol_rel_err_pct": 4.3,
+      "ff_abs_err": 0.0082
+    },
+    "vastus_lateralis": {
+      "true_ml_mean": 567.56,
+      "vol_mae_ml": 30.3,
+      "vol_rel_err_pct": 5.7,
+      "ff_abs_err": 0.0057
+    },
+    "vastus_intermedius": {
+      "true_ml_mean": 479.95,
+      "vol_mae_ml": 26.18,
+      "vol_rel_err_pct": 6.3,
+      "ff_abs_err": 0.0133
+    },
+    "vastus_medialis": {
+      "true_ml_mean": 412.63,
+      "vol_mae_ml": 44.81,
+      "vol_rel_err_pct": 10.8,
+      "ff_abs_err": 0.0058
+    },
+    "sartorius": {
+      "true_ml_mean": 117.92,
+      "vol_mae_ml": 5.16,
+      "vol_rel_err_pct": 4.5,
+      "ff_abs_err": 0.018
+    },
+    "gracilis": {
+      "true_ml_mean": 74.95,
+      "vol_mae_ml": 1.74,
+      "vol_rel_err_pct": 3.0,
+      "ff_abs_err": 0.0091
+    },
+    "biceps_femoris": {
+      "true_ml_mean": 245.48,
+      "vol_mae_ml": 7.74,
+      "vol_rel_err_pct": 3.4,
+      "ff_abs_err": 0.0084
+    },
+    "semitendinosus": {
+      "true_ml_mean": 136.57,
+      "vol_mae_ml": 10.44,
+      "vol_rel_err_pct": 9.9,
+      "ff_abs_err": 0.0047
+    },
+    "semimembranosus": {
+      "true_ml_mean": 177.77,
+      "vol_mae_ml": 13.21,
+      "vol_rel_err_pct": 6.9,
+      "ff_abs_err": 0.0062
+    },
+    "adductor_brevis": {
+      "true_ml_mean": 104.72,
+      "vol_mae_ml": 6.7,
+      "vol_rel_err_pct": 6.3,
+      "ff_abs_err": 0.0061
+    },
+    "adductor_longus": {
+      "true_ml_mean": 132.66,
+      "vol_mae_ml": 5.88,
+      "vol_rel_err_pct": 4.6,
+      "ff_abs_err": 0.0088
+    },
+    "adductor_magnus": {
+      "true_ml_mean": 503.07,
+      "vol_mae_ml": 20.68,
+      "vol_rel_err_pct": 4.4,
+      "ff_abs_err": 0.006
+    },
+    "gluteus_maximus": {
+      "true_ml_mean": 164.55,
+      "vol_mae_ml": 7.98,
+      "vol_rel_err_pct": 6.0,
+      "ff_abs_err": 0.0174
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "norm": "shared_bn",
+  "seed": 1,
+  "ct_dice_fg": 0.9424,
+  "mri_dice_fg": 0.8523,
+  "minutes": 31.1
+}

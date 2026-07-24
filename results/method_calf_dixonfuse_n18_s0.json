@@ -1,0 +1,47 @@
+{
+  "variant": "dixonfuse",
+  "n_subjects": 18,
+  "seed": 0,
+  "classes": [
+    "clear_label",
+    "gastrocnemius_medialis",
+    "gastrocnemius_lateralis",
+    "soleus",
+    "flexor_digitorum_longus",
+    "flexor_hallucis_longus",
+    "tibilais_posterior",
+    "peroneus",
+    "tibialis_anterior",
+    "extensor_longus"
+  ],
+  "channel_names": [
+    "Water",
+    "Fat",
+    "In_phase",
+    "Opp_phase",
+    "FatFraction"
+  ],
+  "test_dice_per_class": [
+    0.9983,
+    0.8764,
+    0.8584,
+    0.9069,
+    0.6724,
+    0.731,
+    0.867,
+    0.93,
+    0.8392,
+    0.8677
+  ],
+  "test_dice_fg_mean": 0.8388,
+  "test_iou_fg_mean": 0.7562,
+  "learned_contrast_gate": [
+    0.5152000188827515,
+    0.43700000643730164,
+    0.3855000138282776,
+    0.4616999924182892,
+    0.4729999899864197
+  ],
+  "n_params_M": 24.44,
+  "minutes": 6.7
+}

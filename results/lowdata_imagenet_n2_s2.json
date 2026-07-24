@@ -1,0 +1,30 @@
+{
+  "init": "imagenet",
+  "n_subjects": 2,
+  "seed": 2,
+  "subjects_used": [
+    "16",
+    "22"
+  ],
+  "epochs": 60,
+  "test_dice_per_class": [
+    0.9921,
+    0.7758,
+    0.7833,
+    0.7284,
+    0.6543,
+    0.7909,
+    0.559,
+    0.6294,
+    0.5998,
+    0.5385,
+    0.2624,
+    0.406,
+    0.6437,
+    0.3169
+  ],
+  "test_dice_fg_mean": 0.5914,
+  "test_iou_fg_mean": 0.4972,
+  "best_val_dice_fg": 0.487,
+  "minutes": 2.1
+}

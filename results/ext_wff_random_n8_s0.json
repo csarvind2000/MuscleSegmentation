@@ -1,0 +1,20 @@
+{
+  "init": "random",
+  "channels": "wff",
+  "n": 8,
+  "seed": 0,
+  "test_dice_fg_mean": 0.7064,
+  "per_subject_dice": {
+    "THIGH_063": 0.6495,
+    "THIGH_049": 0.7531,
+    "THIGH_030": 0.7625,
+    "THIGH_026": 0.6748,
+    "THIGH_008": 0.7276,
+    "THIGH_047": 0.7851,
+    "THIGH_058": 0.6724,
+    "THIGH_032": 0.7144,
+    "THIGH_017": 0.7193,
+    "THIGH_050": 0.6057
+  },
+  "minutes": 3.4
+}

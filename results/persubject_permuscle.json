@@ -1,0 +1,86 @@
+{
+  "unet_r34": {
+    "overall": 0.921,
+    "permuscle": {
+      "rectus_femoris": 0.955,
+      "vastus_lateralis": 0.929,
+      "vastus_intermedius": 0.867,
+      "vastus_medialis": 0.907,
+      "sartorius": 0.917,
+      "gracilis": 0.923,
+      "biceps_femoris": 0.941,
+      "semitendinosus": 0.917,
+      "semimembranosus": 0.925,
+      "adductor_brevis": 0.887,
+      "adductor_longus": 0.922,
+      "adductor_magnus": 0.945,
+      "gluteus_maximus": 0.94
+    },
+    "hd95_px": 4.77,
+    "assd_px": 1.26,
+    "sdice2px": 0.903
+  },
+  "unetpp_r34": {
+    "overall": 0.922,
+    "permuscle": {
+      "rectus_femoris": 0.957,
+      "vastus_lateralis": 0.927,
+      "vastus_intermedius": 0.866,
+      "vastus_medialis": 0.917,
+      "sartorius": 0.925,
+      "gracilis": 0.924,
+      "biceps_femoris": 0.944,
+      "semitendinosus": 0.923,
+      "semimembranosus": 0.929,
+      "adductor_brevis": 0.871,
+      "adductor_longus": 0.916,
+      "adductor_magnus": 0.948,
+      "gluteus_maximus": 0.936
+    },
+    "hd95_px": 4.55,
+    "assd_px": 1.19,
+    "sdice2px": 0.905
+  },
+  "deeplabv3p_r34": {
+    "overall": 0.902,
+    "permuscle": {
+      "rectus_femoris": 0.947,
+      "vastus_lateralis": 0.917,
+      "vastus_intermedius": 0.852,
+      "vastus_medialis": 0.882,
+      "sartorius": 0.905,
+      "gracilis": 0.907,
+      "biceps_femoris": 0.914,
+      "semitendinosus": 0.887,
+      "semimembranosus": 0.901,
+      "adductor_brevis": 0.853,
+      "adductor_longus": 0.909,
+      "adductor_magnus": 0.93,
+      "gluteus_maximus": 0.927
+    },
+    "hd95_px": 5.91,
+    "assd_px": 1.56,
+    "sdice2px": 0.872
+  },
+  "segformer_b1": {
+    "overall": 0.909,
+    "permuscle": {
+      "rectus_femoris": 0.949,
+      "vastus_lateralis": 0.922,
+      "vastus_intermedius": 0.862,
+      "vastus_medialis": 0.911,
+      "sartorius": 0.915,
+      "gracilis": 0.906,
+      "biceps_femoris": 0.927,
+      "semitendinosus": 0.89,
+      "semimembranosus": 0.901,
+      "adductor_brevis": 0.87,
+      "adductor_longus": 0.907,
+      "adductor_magnus": 0.938,
+      "gluteus_maximus": 0.925
+    },
+    "hd95_px": 3.87,
+    "assd_px": 1.17,
+    "sdice2px": 0.887
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "model": "method:gateonly",
+  "region": "thigh",
+  "n": 2,
+  "fold": 0,
+  "repeat": 0,
+  "per_subject_dice": {
+    "10": 0.7586,
+    "09": 0.7038,
+    "17": 0.7605,
+    "24": 0.7718,
+    "13": 0.7248
+  }
+}

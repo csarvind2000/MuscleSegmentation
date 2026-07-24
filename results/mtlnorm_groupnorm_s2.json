@@ -1,0 +1,7 @@
+{
+  "norm": "groupnorm",
+  "seed": 2,
+  "ct_dice_fg": 0.9447,
+  "mri_dice_fg": 0.8375,
+  "minutes": 35.0
+}

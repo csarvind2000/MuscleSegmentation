@@ -1,0 +1,128 @@
+{
+  "N2": {
+    "n_subjects": 25,
+    "means": {
+      "dixon4": 0.7069,
+      "dixon5": 0.7445,
+      "dixonfuse": 0.7442
+    },
+    "ci95": {
+      "dixon4": [
+        0.6676,
+        0.7415
+      ],
+      "dixon5": [
+        0.7142,
+        0.7727
+      ],
+      "dixonfuse": [
+        0.7138,
+        0.7715
+      ]
+    },
+    "comparisons": [
+      {
+        "comparison": "fat-fraction vs baseline",
+        "delta": 0.0376,
+        "p": 0.001,
+        "p_holm": 0.003
+      },
+      {
+        "comparison": "fat-fraction+gate vs baseline",
+        "delta": 0.0373,
+        "p": 0.0032,
+        "p_holm": 0.0065
+      },
+      {
+        "comparison": "fat-fraction+gate vs fat-fraction",
+        "delta": -0.0003,
+        "p": 0.9592,
+        "p_holm": 0.9592
+      }
+    ]
+  },
+  "N4": {
+    "n_subjects": 25,
+    "means": {
+      "dixon4": 0.842,
+      "dixon5": 0.8491,
+      "dixonfuse": 0.8515
+    },
+    "ci95": {
+      "dixon4": [
+        0.8209,
+        0.8596
+      ],
+      "dixon5": [
+        0.83,
+        0.8663
+      ],
+      "dixonfuse": [
+        0.8325,
+        0.8672
+      ]
+    },
+    "comparisons": [
+      {
+        "comparison": "fat-fraction vs baseline",
+        "delta": 0.0072,
+        "p": 0.0051,
+        "p_holm": 0.0102
+      },
+      {
+        "comparison": "fat-fraction+gate vs baseline",
+        "delta": 0.0095,
+        "p": 0.0009,
+        "p_holm": 0.0026
+      },
+      {
+        "comparison": "fat-fraction+gate vs fat-fraction",
+        "delta": 0.0024,
+        "p": 0.4563,
+        "p_holm": 0.4563
+      }
+    ]
+  },
+  "N8": {
+    "n_subjects": 25,
+    "means": {
+      "dixon4": 0.8861,
+      "dixon5": 0.8871,
+      "dixonfuse": 0.8867
+    },
+    "ci95": {
+      "dixon4": [
+        0.8704,
+        0.8992
+      ],
+      "dixon5": [
+        0.871,
+        0.8996
+      ],
+      "dixonfuse": [
+        0.8689,
+        0.9003
+      ]
+    },
+    "comparisons": [
+      {
+        "comparison": "fat-fraction vs baseline",
+        "delta": 0.0009,
+        "p": 0.4646,
+        "p_holm": 1.0
+      },
+      {
+        "comparison": "fat-fraction+gate vs baseline",
+        "delta": 0.0005,
+        "p": 0.7684,
+        "p_holm": 1.0
+      },
+      {
+        "comparison": "fat-fraction+gate vs fat-fraction",
+        "delta": -0.0004,
+        "p": 0.8332,
+        "p_holm": 1.0
+      }
+    ]
+  }
+}

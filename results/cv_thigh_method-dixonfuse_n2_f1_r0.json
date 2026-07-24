@@ -1,0 +1,14 @@
+{
+  "model": "method:dixonfuse",
+  "region": "thigh",
+  "n": 2,
+  "fold": 1,
+  "repeat": 0,
+  "per_subject_dice": {
+    "05": 0.6716,
+    "02": 0.8699,
+    "16": 0.7778,
+    "06": 0.7047,
+    "04": 0.8317
+  }
+}

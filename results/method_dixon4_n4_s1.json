@@ -1,0 +1,49 @@
+{
+  "variant": "dixon4",
+  "n_subjects": 4,
+  "seed": 1,
+  "classes": [
+    "clear_label",
+    "rectus_femoris",
+    "vastus_lateralis",
+    "vastus_intermedius",
+    "vastus_medialis",
+    "sartorius",
+    "gracilis",
+    "biceps_femoris",
+    "semitendinosus",
+    "semimembranosus",
+    "adductor_brevis",
+    "adductor_longus",
+    "adductor_magnus",
+    "gluteus_maximus"
+  ],
+  "channel_names": [
+    "Water",
+    "Fat",
+    "In_phase",
+    "Opp_phase",
+    "FatFraction"
+  ],
+  "test_dice_per_class": [
+    0.9925,
+    0.8296,
+    0.8231,
+    0.813,
+    0.7916,
+    0.8758,
+    0.7812,
+    0.7325,
+    0.5624,
+    0.4873,
+    0.5535,
+    0.637,
+    0.7219,
+    0.6081
+  ],
+  "test_dice_fg_mean": 0.709,
+  "test_iou_fg_mean": 0.6248,
+  "learned_contrast_gate": null,
+  "n_params_M": 24.44,
+  "minutes": 3.7
+}

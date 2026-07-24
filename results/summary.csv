@@ -1,0 +1,9 @@
+task,model,params_M,dice_fg_mean,iou_fg_mean,minutes,per_class_dice
+aattct,deeplabv3p_r34,22.43,0.9428,0.8934,10.3,background:0.9916|SAT:0.9614|VAT:0.9242
+aattct,segformer_b1,13.67,0.9424,0.8928,11.9,background:0.9916|SAT:0.961|VAT:0.9239
+aattct,unet_r34,24.43,0.945,0.8971,13.0,background:0.992|SAT:0.9609|VAT:0.9291
+aattct,unetpp_r34,26.07,0.946,0.899,28.0,background:0.9921|SAT:0.9625|VAT:0.9296
+thigh,deeplabv3p_r34,22.44,0.8309,0.7545,7.3,clear_label:0.9945|rectus_femoris:0.9059|vastus_lateralis:0.8452|vastus_intermedius:0.8171|vastus_medialis:0.7888|sartorius:0.9073|gracilis:0.859|biceps_femoris:0.8466|semitendinosus:0.8374|semimembranosus:0.8187|adductor_brevis:0.7149|adductor_longus:0.8119|adductor_magnus:0.8465|gluteus_maximus:0.8027
+thigh,segformer_b1,13.68,0.843,0.7684,9.8,clear_label:0.995|rectus_femoris:0.9229|vastus_lateralis:0.8761|vastus_intermedius:0.8348|vastus_medialis:0.8182|sartorius:0.916|gracilis:0.864|biceps_femoris:0.8582|semitendinosus:0.8392|semimembranosus:0.8123|adductor_brevis:0.7196|adductor_longus:0.8117|adductor_magnus:0.8603|gluteus_maximus:0.8251
+thigh,unet_r34,24.44,0.8549,0.7889,7.6,clear_label:0.9954|rectus_femoris:0.8999|vastus_lateralis:0.8641|vastus_intermedius:0.84|vastus_medialis:0.7951|sartorius:0.9177|gracilis:0.8908|biceps_femoris:0.8924|semitendinosus:0.8766|semimembranosus:0.8394|adductor_brevis:0.7634|adductor_longus:0.8138|adductor_magnus:0.8738|gluteus_maximus:0.8466
+thigh,unetpp_r34,26.08,0.857,0.792,12.1,clear_label:0.9955|rectus_femoris:0.9319|vastus_lateralis:0.8654|vastus_intermedius:0.833|vastus_medialis:0.7917|sartorius:0.9256|gracilis:0.8973|biceps_femoris:0.8886|semitendinosus:0.8752|semimembranosus:0.8372|adductor_brevis:0.7371|adductor_longus:0.8452|adductor_magnus:0.8946|gluteus_maximus:0.8184

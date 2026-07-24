@@ -1,0 +1,30 @@
+{
+  "init": "random",
+  "n_subjects": 2,
+  "seed": 1,
+  "subjects_used": [
+    "18",
+    "22"
+  ],
+  "epochs": 60,
+  "test_dice_per_class": [
+    0.9911,
+    0.4877,
+    0.6316,
+    0.6893,
+    0.605,
+    0.6758,
+    0.4742,
+    0.5197,
+    0.2461,
+    0.3567,
+    0.2829,
+    0.4042,
+    0.6459,
+    0.4253
+  ],
+  "test_dice_fg_mean": 0.4957,
+  "test_iou_fg_mean": 0.3996,
+  "best_val_dice_fg": 0.4282,
+  "minutes": 2.1
+}

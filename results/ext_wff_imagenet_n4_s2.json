@@ -1,0 +1,20 @@
+{
+  "init": "imagenet",
+  "channels": "wff",
+  "n": 4,
+  "seed": 2,
+  "test_dice_fg_mean": 0.2751,
+  "per_subject_dice": {
+    "THIGH_063": 0.3285,
+    "THIGH_049": 0.2547,
+    "THIGH_030": 0.2092,
+    "THIGH_026": 0.3109,
+    "THIGH_008": 0.2642,
+    "THIGH_047": 0.2585,
+    "THIGH_058": 0.3071,
+    "THIGH_032": 0.218,
+    "THIGH_017": 0.2327,
+    "THIGH_050": 0.3671
+  },
+  "minutes": 3.1
+}

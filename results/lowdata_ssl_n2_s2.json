@@ -1,0 +1,30 @@
+{
+  "init": "ssl",
+  "n_subjects": 2,
+  "seed": 2,
+  "subjects_used": [
+    "16",
+    "22"
+  ],
+  "epochs": 60,
+  "test_dice_per_class": [
+    0.989,
+    0.4057,
+    0.6169,
+    0.6723,
+    0.5182,
+    0.5879,
+    0.3272,
+    0.4115,
+    0.3133,
+    0.3176,
+    0.326,
+    0.4873,
+    0.5596,
+    0.4267
+  ],
+  "test_dice_fg_mean": 0.4592,
+  "test_iou_fg_mean": 0.3625,
+  "best_val_dice_fg": 0.3422,
+  "minutes": 2.2
+}

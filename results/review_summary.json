@@ -1,0 +1,105 @@
+{
+  "cross_validation": {
+    "method-dixon4": {
+      "n_subjects": 25,
+      "mean": 0.8861,
+      "ci95": [
+        0.8704,
+        0.8992
+      ]
+    },
+    "method-dixonfuse": {
+      "n_subjects": 25,
+      "mean": 0.8867,
+      "ci95": [
+        0.8689,
+        0.9003
+      ]
+    },
+    "init-random": {
+      "n_subjects": 25,
+      "mean": 0.8545,
+      "ci95": [
+        0.8351,
+        0.8714
+      ]
+    },
+    "init-imagenet": {
+      "n_subjects": 25,
+      "mean": 0.8847,
+      "ci95": [
+        0.8693,
+        0.8977
+      ]
+    },
+    "init-ct": {
+      "n_subjects": 25,
+      "mean": 0.8805,
+      "ci95": [
+        0.8652,
+        0.8932
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "test": "DixonFuse vs Dixon4 (CV, N=8)",
+      "mean_diff": 0.0005,
+      "p": 0.7684,
+      "p_holm": 0.8387
+    },
+    {
+      "test": "ImageNet vs random (CV)",
+      "mean_diff": 0.0302,
+      "p": 0.0,
+      "p_holm": 0.0001
+    },
+    {
+      "test": "ImageNet vs CT (CV)",
+      "mean_diff": 0.0042,
+      "p": 0.4193,
+      "p_holm": 0.8387
+    },
+    {
+      "test": "CT vs random (CV)",
+      "mean_diff": 0.026,
+      "p": 0.0,
+      "p_holm": 0.0
+    }
+  ],
+  "tost_imagenet_vs_ct": {
+    "margin": 0.02,
+    "mean_diff": 0.0042,
+    "p_tost": 0.0027,
+    "equivalent": true
+  },
+  "mtl_norm": {
+    "shared_bn": {
+      "ct": 0.9433,
+      "mri": 0.85,
+      "seeds": 3
+    },
+    "groupnorm": {
+      "ct": 0.9448,
+      "mri": 0.8443,
+      "seeds": 3
+    },
+    "instancenorm": {
+      "ct": 0.945,
+      "mri": 0.851,
+      "seeds": 3
+    }
+  },
+  "gate_only": {
+    "n2": 0.5833,
+    "n4": 0.7161,
+    "n8": 0.8007,
+    "n18": 0.8446
+  },
+  "ssl_downstream": {
+    "n2": 0.3971,
+    "n4": 0.6009,
+    "n8": 0.7118,
+    "n18": 0.7981
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "model": "init:imagenet",
+  "region": "thigh",
+  "n": 8,
+  "fold": 3,
+  "repeat": 0,
+  "per_subject_dice": {
+    "01": 0.9056,
+    "20": 0.8951,
+    "23": 0.8947,
+    "03": 0.8532,
+    "14": 0.915
+  }
+}

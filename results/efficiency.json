@@ -1,0 +1,20 @@
+{
+  "params_M": {
+    "single_ct": 24.43,
+    "single_mri_dixonfuse": 24.44,
+    "single_total": 48.87,
+    "multitask_shared": 27.59
+  },
+  "checkpoint_MB": {
+    "single_total": 195.8,
+    "multitask_shared": 110.5
+  },
+  "inference_ms": {
+    "single_mri": 4.3,
+    "multitask_mri": 4.2
+  },
+  "peak_mem_MB": {
+    "single_mri": 250.0,
+    "multitask_mri": 247.0
+  }
+}
