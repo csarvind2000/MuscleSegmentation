@@ -1,0 +1,20 @@
+{
+  "init": "primary",
+  "n": 8,
+  "seed": 1,
+  "metric": "10-muscle zeroshot",
+  "test_dice_mean": 0.7125,
+  "per_subject": {
+    "THIGH_063": 0.7281,
+    "THIGH_049": 0.8067,
+    "THIGH_030": 0.6218,
+    "THIGH_026": 0.4599,
+    "THIGH_008": 0.8362,
+    "THIGH_047": 0.7238,
+    "THIGH_058": 0.6497,
+    "THIGH_032": 0.6927,
+    "THIGH_017": 0.8013,
+    "THIGH_050": 0.805
+  },
+  "minutes": 3.2
+}

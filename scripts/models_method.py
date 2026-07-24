@@ -38,13 +38,19 @@ class DixonFuseUNet(nn.Module):
     def __init__(self, variant, num_classes):
         super().__init__()
         # gateonly: contrast-attention over the 4 Dixon channels, WITHOUT fat-fraction
-        ch = {"wateronly": 1, "dixon4": 4, "gateonly": 4, "dixon5": 5, "dixonfuse": 5}[variant]
+        # ffsup: fat-fraction is NOT an input; instead an auxiliary head regresses the
+        #        per-pixel fat-fraction from the shared decoder, so the physics prior
+        #        supervises the representation rather than adding a redundant input channel.
+        ch = {"wateronly": 1, "dixon4": 4, "gateonly": 4, "dixon5": 5,
+              "dixonfuse": 5, "ffsup": 4}[variant]
         self.variant = variant
         self.in_ch = ch
+        self.aux_ff = (variant == "ffsup")           # auxiliary fat-fraction regression
         self.attn = ContrastAttention(ch) if variant in ("dixonfuse", "gateonly") else None
         self.stem = nn.Conv2d(ch, 3, kernel_size=1)
+        out_classes = num_classes + (1 if self.aux_ff else 0)   # +1 = FF regression map
         self.unet = smp.Unet("resnet34", encoder_weights="imagenet",
-                             in_channels=3, classes=num_classes)
+                             in_channels=3, classes=out_classes)
 
     def select(self, x):
         # x is full 5-channel tensor; pick the channels this variant uses
@@ -59,4 +65,4 @@ class DixonFuseUNet(nn.Module):
         if self.attn is not None:
             x = self.attn(x)
         x = self.stem(x)
-        return self.unet(x)
+        return self.unet(x)    # for ffsup, last channel is the FF regression logit

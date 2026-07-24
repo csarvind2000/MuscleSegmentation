@@ -1,0 +1,8 @@
+{
+  "method": "domain randomisation + AdaBN (source-free)",
+  "mean": 0.2986,
+  "sd": 0.1893,
+  "min": 0.013,
+  "max": 0.734,
+  "n": 66
+}

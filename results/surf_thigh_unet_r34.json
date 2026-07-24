@@ -1,0 +1,6 @@
+{
+  "model": "unet_r34",
+  "hd95_px": 4.79,
+  "assd_px": 1.26,
+  "sdice2px": 0.911
+}

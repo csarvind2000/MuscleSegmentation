@@ -1,0 +1,21 @@
+{
+  "region": "thigh",
+  "model": "unetpp_r34",
+  "protocol": "per-subject volume Dice, held-out",
+  "per_muscle": {
+    "rectus_femoris": 0.9575,
+    "vastus_lateralis": 0.927,
+    "vastus_intermedius": 0.8656,
+    "vastus_medialis": 0.9171,
+    "sartorius": 0.9249,
+    "gracilis": 0.9237,
+    "biceps_femoris": 0.9444,
+    "semitendinosus": 0.923,
+    "semimembranosus": 0.9285,
+    "adductor_brevis": 0.8712,
+    "adductor_longus": 0.9165,
+    "adductor_magnus": 0.9476,
+    "gluteus_maximus": 0.9359
+  },
+  "fg_mean": 0.9218
+}

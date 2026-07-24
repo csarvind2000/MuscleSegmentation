@@ -55,14 +55,17 @@ def build(model_spec, nc):
 
 
 @torch.no_grad()
-def per_subject_dice(model, subjects, cache, nc, dev):
+def per_subject_dice(model, subjects, cache, nc, dev, aux=False):
     out = {}
     for s in subjects:
         files = sorted(glob.glob(os.path.join(cache, f"{s}_*.npz")))
         dl = DataLoader(ThighSliceDataset(files), 8, False, num_workers=4, pin_memory=True)
         inter = np.zeros(nc); denom = np.zeros(nc)
         for img, mask in dl:
-            pred = model(img.to(dev)).argmax(1).cpu()
+            logits = model(img.to(dev))
+            if aux:                       # ffsup: first nc channels are the segmentation
+                logits = logits[:, :nc]
+            pred = logits.argmax(1).cpu()
             for c in range(nc):
                 p = (pred == c); t = (mask == c)
                 inter[c] += (p & t).sum().item(); denom[c] += p.sum().item() + t.sum().item()
@@ -81,6 +84,7 @@ def main():
     ap.add_argument("--epochs", type=int, default=70)
     ap.add_argument("--bs", type=int, default=8)
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--ff_weight", type=float, default=1.0, help="weight of the FF auxiliary loss (ffsup only)")
     args = ap.parse_args()
 
     cache = os.path.join(C.CACHE, f"{args.region}_slices5")
@@ -96,22 +100,32 @@ def main():
 
     tr = DataLoader(ThighSliceDataset(sfiles(train, cache), augment=True), args.bs, True,
                     num_workers=args.workers, pin_memory=True, drop_last=len(train) > 1)
+    is_ffsup = args.model.endswith(":ffsup")   # FF as physics supervision (Option A)
     model = build(args.model, nc).to(dev)
     opt = torch.optim.AdamW(model.parameters(), lr=3e-4, weight_decay=1e-4)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, args.epochs)
-    crit = DiceCELoss(nc).to(dev); scaler = torch.cuda.amp.GradScaler()
+    crit = DiceCELoss(nc).to(dev); mse = nn.MSELoss(); scaler = torch.cuda.amp.GradScaler()
     for ep in range(args.epochs):
         model.train()
         for img, mask in tr:
             img, mask = img.to(dev), mask.to(dev)
             opt.zero_grad()
             with torch.cuda.amp.autocast():
-                loss = crit(model(img), mask)
+                out = model(img)
+                if is_ffsup:
+                    seg = out[:, :nc]
+                    ff_pred = torch.sigmoid(out[:, nc:nc + 1])
+                    ff_tgt = img[:, 4:5]                    # measured fat-fraction (physics target)
+                    loss = crit(seg, mask) + args.ff_weight * mse(ff_pred, ff_tgt)
+                else:
+                    loss = crit(out, mask)
             scaler.scale(loss).backward(); scaler.step(opt); scaler.update()
         sched.step()
     model.eval()
-    ps = per_subject_dice(model, test, cache, nc, dev)
+    ps = per_subject_dice(model, test, cache, nc, dev, aux=is_ffsup)
     tag = f"cv_{args.region}_{args.model.replace(':','-')}_n{args.n}_f{args.fold}_r{args.repeat}"
+    if is_ffsup and args.ff_weight != 1.0:
+        tag += f"_w{args.ff_weight:g}"
     json.dump({"model": args.model, "region": args.region, "n": args.n, "fold": args.fold,
                "repeat": args.repeat, "per_subject_dice": ps}, open(os.path.join(C.RESULTS, tag + ".json"), "w"), indent=2)
     print(f"[{tag}] " + " ".join(f"{k}:{v}" for k, v in ps.items()), flush=True)

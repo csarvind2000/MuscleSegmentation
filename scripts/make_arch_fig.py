@@ -96,7 +96,7 @@ def inset(ax, x, y, w, h, img, title=None, cmap=None, ec="#94a3b8"):
     for s in a.spines.values():
         s.set_edgecolor(ec); s.set_linewidth(1.3)
     if title:
-        a.set_title(title, fontsize=8.8, color=INK, pad=2, fontweight="bold")
+        a.set_title(title, fontsize=8.8, color=INK, pad=6, fontweight="bold")
     return a
 
 
@@ -104,54 +104,48 @@ def inset(ax, x, y, w, h, img, title=None, cmap=None, ec="#94a3b8"):
 def study_design():
     ct = ct_overlay()
     w_img, mri_over, ff_img, _ = mri_sample()
-    fig, ax = plt.subplots(figsize=(13.5, 7.6))
-    ax.set_xlim(0, 13.5); ax.set_ylim(0, 7.6); ax.axis("off")
-    ax.text(6.75, 7.32, "Systematic study of data-scarce body-composition segmentation",
+    fig, ax = plt.subplots(figsize=(13.5, 6.8))
+    ax.set_xlim(0, 13.5); ax.set_ylim(0, 6.8); ax.axis("off")
+    ax.text(6.75, 6.52, "Systematic study of data-scarce body-composition segmentation",
             ha="center", fontsize=14.5, fontweight="bold", color=INK)
 
-    for cx, t in [(2.35, "TWO PRIMARY DATASETS"), (7.0, "FOUR EXPERIMENTAL FACTORS"), (11.55, "EVALUATION")]:
-        ax.text(cx, 6.75, t, ha="center", fontsize=12, fontweight="bold", color=GREY)
+    for cx, t in [(2.45, "TWO PRIMARY DATASETS"), (7.0, "FOUR EXPERIMENTAL FACTORS"),
+                  (11.55, "EVALUATION")]:
+        ax.text(cx, 5.98, t, ha="center", fontsize=12, fontweight="bold", color=GREY)
 
-    # ---- data: image + caption ----
-    inset(ax, 0.35, 4.55, 1.5, 1.5, ct, "CT + SAT/VAT", ec=CCT_E)
-    box(ax, 2.05, 4.75, 2.6, 1.15, "AATTCT-IDS (CT)",
+    YC = 3.05  # shared vertical centre of the three columns
+
+    # ---- primary datasets (left): CT block over MRI block ----
+    inset(ax, 0.35, 3.55, 1.45, 1.45, ct, "CT + SAT/VAT", ec=CCT_E)
+    box(ax, 2.0, 3.70, 2.55, 1.15, "AATTCT-IDS (CT)",
         "300 subjects  ·  3213 slices\n512×512  ·  SAT/VAT (3 cls)", CCT, CCT_E, tfs=10.0, sfs=8.2)
-    inset(ax, 0.35, 2.35, 1.5, 1.5, mri_over, "MRI + 13 muscles", ec=CMRI_E)
-    box(ax, 2.05, 2.55, 2.6, 1.15, "Thigh Dixon MRI",
+    inset(ax, 0.35, 1.15, 1.45, 1.45, mri_over, "MRI + 13 muscles", ec=CMRI_E)
+    box(ax, 2.0, 1.30, 2.55, 1.15, "Thigh Dixon MRI",
         "25 subjects  ·  1513 slices\n256×256  ·  4ch  ·  14 cls", CMRI, CMRI_E, tfs=10.0, sfs=8.2)
-    box(ax, 0.35, 1.15, 4.05, 0.85, "Subject-level split  70 / 10 / 20",
-        "no slice leakage across sets", CBG, "#94a3b8", tfs=10.0, sfs=8.2)
 
-    # ---- axes ----
+    # ---- four experimental factors (middle), grouped in one box ----
+    ax.add_patch(_round((4.8, 0.65), 4.4, 4.8, "#f8fafc", "#94a3b8", lw=1.3, rad=0.02))
     axes = [
-        ("Factor 1 . Architecture", "U-Net | U-Net++ | DeepLabV3+ | SegFormer", CAXIS, CAX_E, 5.35),
-        ("Factor 2 . Pretraining source", "random | ImageNet | CT | self-supervised (SSL)", CAXIS, CAX_E, 4.15),
-        ("Factor 3 . Input design", "+fat-fraction (primary)  ·  +SE gate (ablation)", CMETH, CMET_E, 2.95),
-        ("Factor 4 . Multi-task learning", "shared encoder, two task decoders", CAXIS, CAX_E, 1.75),
+        ("Factor 1 . Architecture", "U-Net | DeepLabV3+ | HRNet-W18", CAXIS, CAX_E, 4.32),
+        ("Factor 2 . Pretraining source", "random | ImageNet | CT\nself-supervised (SSL)", "#d6ebe7", "#2f8a7a", 3.14),
+        ("Factor 3 . Input design", "+FF (primary)  ·  +SE gate (ablation)", CMETH, CMET_E, 1.96),
+        ("Factor 4 . Multi-task learning", "shared encoder,\ntwo task decoders", "#f6e1ec", "#b85589", 0.78),
     ]
     for title, sub, fc, ec, y in axes:
-        box(ax, 5.15, y, 3.75, 1.0, title, sub, fc, ec, tfs=10.0, sfs=8.2)
+        box(ax, 5.0, y, 4.0, 1.0, title, sub, fc, ec, tfs=10.0, sfs=8.0)
 
-    # ---- eval ----
-    box(ax, 9.95, 4.95, 3.2, 1.05, "Per-subject Dice & IoU", "held-out subjects", CEVAL, CEV_E, tfs=10.0, sfs=8.4)
-    box(ax, 9.95, 3.6, 3.2, 1.05, "Data-efficiency + 5-fold CV", "N=2,4,8,18; per-subject", CEVAL, CEV_E, tfs=10.0, sfs=8.4)
-    box(ax, 9.95, 2.25, 3.2, 1.05, "3 seeds -> mean +/- std", "channel-weight & occlusion", CEVAL, CEV_E, tfs=10.0, sfs=8.4)
+    # ---- evaluation (right), grouped in one box and vertically centred (middled) ----
+    ax.add_patch(_round((9.75, 0.65), 3.6, 4.8, "#f8fafc", "#94a3b8", lw=1.3, rad=0.02))
+    box(ax, 9.95, 4.025, 3.2, 1.15, "Fixed held-out benchmark",
+        "architecture, 2.5D,\nshared encoder", CEVAL, CEV_E, tfs=10.0, sfs=8.0)
+    box(ax, 9.95, 2.475, 3.2, 1.15, "Repeated five-fold CV",
+        "pretraining,\ninput design", CEVAL, CEV_E, tfs=10.0, sfs=8.0)
+    box(ax, 9.95, 0.925, 3.2, 1.15, "Statistical unit: subject",
+        "3 seeds -> mean ± SD", CEVAL, CEV_E, tfs=10.0, sfs=8.0)
 
-    # ---- arrows ----
-    arrow(ax, (4.7, 5.3), (5.15, 5.55)); arrow(ax, (4.7, 5.1), (5.15, 4.55))
-    arrow(ax, (4.7, 3.1), (5.15, 3.35)); arrow(ax, (4.7, 3.0), (5.15, 2.15))
-    for y in (5.85, 4.65, 3.45, 2.25):
-        arrow(ax, (8.9, y), (9.95, 5.4 if y > 4.5 else (4.1 if y > 3 else 2.8)))
-
-    ax.add_patch(_round((0.3, 0.12), 12.9, 0.92, "#f8fafc", "#cbd5e1", lw=1.2, rad=0.02))
-    ax.text(6.75, 0.76,
-            "Findings:   (1) architecture differences comparatively small     "
-            "(2) ImageNet and CT initialisation statistically equivalent",
-            ha="center", va="center", fontsize=9.4, fontweight="bold", color=LINE)
-    ax.text(6.75, 0.40,
-            "(3) fat-fraction proxy: significant gain at the lowest labels     "
-            "(4) shared encoder close to single-task",
-            ha="center", va="center", fontsize=9.4, fontweight="bold", color=LINE)
+    # ---- one connector between sections (both datasets feed all factors; all factors feed evaluation) ----
+    arrow(ax, (4.62, YC), (4.78, YC), lw=2.2)
+    arrow(ax, (9.22, YC), (9.73, YC), lw=2.2)
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(C.FIG, f"fig_study_design.{ext}"), dpi=220, bbox_inches="tight")
     plt.close()
@@ -195,13 +189,13 @@ def workflow():
     w_img, mri_over, ff_img, _ = mri_sample()
     fig, ax = plt.subplots(figsize=(13.5, 3.0))
     ax.set_xlim(0, 13.5); ax.set_ylim(0, 3.0); ax.axis("off")
-    ax.text(6.75, 2.78, "Label-efficient individual-muscle segmentation workflow",
+    ax.text(6.75, 2.78, "Annotation-efficient individual-muscle segmentation workflow",
             ha="center", fontsize=13, fontweight="bold", color=INK)
     y, h = 0.95, 1.15
     inset(ax, 0.30, 0.78, 1.25, 1.45, w_img, "Dixon MRI\n(W,F,In,Opp)", cmap="gray", ec=CMRI_E)
     stages = [
         (1.95, 2.05, "Preprocessing", "standardise, resize,\nfat-fraction proxy", CBG, "#94a3b8"),
-        (4.25, 2.25, "Label-efficient\nmodel", "ImageNet init +\nfat-fraction input", CAXIS, CAX_E),
+        (4.25, 2.25, "Annotation-\nefficient model", "ImageNet init +\nfat-fraction input", CAXIS, CAX_E),
         (6.75, 2.15, "Individual-muscle\nmasks", "13 thigh muscles", CMETH, CMET_E),
         (9.15, 2.35, "Volume & fat-\nfraction measures", "per-muscle mL, FF;\nICC, Bland-Altman", CEVAL, CEV_E),
     ]

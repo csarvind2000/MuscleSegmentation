@@ -1,0 +1,19 @@
+{
+  "method": "AdaBN source-free adaptation (target images, no labels)",
+  "model": "thigh_unet_r34 (4-channel)",
+  "baseline_zeroshot": {
+    "n": 66,
+    "mean": 0.1112,
+    "sd": 0.0926,
+    "min": 0.0,
+    "max": 0.502
+  },
+  "adabn": {
+    "n": 66,
+    "mean": 0.2625,
+    "sd": 0.1676,
+    "min": 0.0,
+    "max": 0.683
+  },
+  "delta_mean": 0.1513
+}

@@ -1,0 +1,14 @@
+{
+  "model": "method:ffsup",
+  "region": "thigh",
+  "n": 2,
+  "fold": 4,
+  "repeat": 1,
+  "per_subject_dice": {
+    "16": 0.744,
+    "15": 0.8778,
+    "10": 0.8553,
+    "06": 0.542,
+    "02": 0.798
+  }
+}

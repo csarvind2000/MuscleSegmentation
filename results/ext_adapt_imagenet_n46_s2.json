@@ -1,0 +1,20 @@
+{
+  "init": "imagenet",
+  "n": 46,
+  "seed": 2,
+  "metric": "10-muscle zeroshot",
+  "test_dice_mean": 0.8778,
+  "per_subject": {
+    "THIGH_063": 0.869,
+    "THIGH_049": 0.9087,
+    "THIGH_030": 0.8548,
+    "THIGH_026": 0.8162,
+    "THIGH_008": 0.9098,
+    "THIGH_047": 0.9022,
+    "THIGH_058": 0.9339,
+    "THIGH_032": 0.8788,
+    "THIGH_017": 0.8754,
+    "THIGH_050": 0.8291
+  },
+  "minutes": 5.9
+}

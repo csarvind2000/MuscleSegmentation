@@ -1,0 +1,21 @@
+{
+  "region": "thigh",
+  "model": "unet_hrnet18",
+  "protocol": "per-subject volume Dice, held-out",
+  "per_muscle": {
+    "rectus_femoris": 0.9621,
+    "vastus_lateralis": 0.9296,
+    "vastus_intermedius": 0.875,
+    "vastus_medialis": 0.9248,
+    "sartorius": 0.9325,
+    "gracilis": 0.922,
+    "biceps_femoris": 0.9448,
+    "semitendinosus": 0.9193,
+    "semimembranosus": 0.9263,
+    "adductor_brevis": 0.8811,
+    "adductor_longus": 0.9258,
+    "adductor_magnus": 0.946,
+    "gluteus_maximus": 0.939
+  },
+  "fg_mean": 0.9253
+}

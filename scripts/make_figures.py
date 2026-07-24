@@ -55,7 +55,8 @@ def qual_methods(n=3):
     nc = meta["num_classes"]
     cmap = rand_cmap(nc)
     archs = [("unet_r34", "U-Net"), ("unetpp_r34", "U-Net++"),
-             ("deeplabv3p_r34", "DeepLabV3+"), ("segformer_b1", "SegFormer")]
+             ("deeplabv3p_r34", "DeepLabV3+"), ("segformer_b1", "SegFormer"),
+             ("unet_hrnet18", "U-Net+HRNet-W18")]
     nets = [(lbl, load_net("thigh", m, meta["in_channels"], nc)) for m, lbl in archs]
     cols = ["MRI (water)", "Ground truth"] + [lbl for lbl, _ in nets]
     picks = np.linspace(len(ds) * 0.15, len(ds) * 0.85, n).astype(int)
@@ -73,7 +74,7 @@ def qual_methods(n=3):
         for c in range(len(cols)):
             ax[r, c].axis("off")
             if r == 0:
-                ax[r, c].set_title(cols[c], fontsize=11)
+                ax[r, c].set_title(cols[c], fontsize=14, fontweight="bold", pad=6)
     plt.tight_layout()
     fig.savefig(os.path.join(C.FIG, "qual_methods.png"), dpi=150, bbox_inches="tight")
     plt.close()
@@ -105,7 +106,8 @@ def qual_factors(subjects=("10",), seed=0):
             ("U-Net", lambda: build_model("unet_r34", 4, nc), "thigh_unet_r34.pt", False),
             ("U-Net++", lambda: build_model("unetpp_r34", 4, nc), "thigh_unetpp_r34.pt", False),
             ("DeepLabV3+", lambda: build_model("deeplabv3p_r34", 4, nc), "thigh_deeplabv3p_r34.pt", False),
-            ("SegFormer", lambda: build_model("segformer_b1", 4, nc), "thigh_segformer_b1.pt", False)]),
+            ("SegFormer", lambda: build_model("segformer_b1", 4, nc), "thigh_segformer_b1.pt", False),
+            ("HRNet-W18", lambda: build_model("unet_hrnet18", 4, nc), "thigh_unet_hrnet18.pt", False)]),
         ("Factor 2\npretraining\n(n=2)", [
             ("random", lambda: build_lowdata("random", 4, nc, "thigh"), f"lowdata_random_n2_s{seed}.pt", False),
             ("ImageNet", lambda: build_lowdata("imagenet", 4, nc, "thigh"), f"lowdata_imagenet_n2_s{seed}.pt", False),
@@ -176,10 +178,10 @@ def qual_factors(subjects=("10",), seed=0):
                 a.imshow(arr, cmap="gray", vmin=lo, vmax=hi)
             else:
                 a.imshow(arr, cmap=cm, vmin=0, vmax=nc - 1)
-            a.set_title(ttl, fontsize=9, fontweight="bold"); a.axis("off")
+            a.set_title(ttl, fontsize=13, fontweight="bold", pad=4); a.axis("off")
             if c == 0:
                 a.text(-0.32, 0.5, mlabel, transform=a.transAxes, rotation=90,
-                       va="center", ha="center", fontsize=9, fontweight="bold")
+                       va="center", ha="center", fontsize=12, fontweight="bold")
                 if mi == 0:
                     header_y.append(a)
 
@@ -242,22 +244,59 @@ def qual_thigh(n=4):
 
 
 def perclass_bars():
-    label = {"aattct": "AATTCT-IDS (CT): SAT / VAT", "thigh": "Thigh MRI: 13 muscles"}
-    fig, axes = plt.subplots(2, 1, figsize=(10, 10))
-    for ax, task in zip(axes, ["aattct", "thigh"]):
-        files = sorted(glob.glob(os.path.join(C.RESULTS, f"{task}_*.json")))
-        if not files: continue
-        rs = [json.load(open(f)) for f in files]
-        classes = [c.replace("_", " ") for c in rs[0]["classes"][1:]]  # drop background
-        x = np.arange(len(classes)); w = 0.8 / len(rs)
-        for k, r in enumerate(rs):
-            vals = [v if v is not None else 0 for v in r["test_dice_per_class"][1:]]
-            ax.bar(x + k * w, vals, w, label=r["model"])
-        ax.set_xticks(x + 0.4 - w / 2); ax.set_xticklabels(classes, rotation=45, ha="right", fontsize=11)
-        ax.set_ylabel("Dice", fontsize=12); ax.set_title(label.get(task, task), fontsize=13)
-        ax.legend(fontsize=10, ncol=4, loc="lower center"); ax.set_ylim(0, 1.05)
-        ax.tick_params(axis="y", labelsize=11); ax.grid(axis="y", alpha=0.3)
-    plt.tight_layout(); plt.savefig(os.path.join(C.FIG, "perclass_dice.png"), dpi=200); plt.close()
+    """Figure S3: (left) AATTCT-IDS SAT/VAT Dice as a line graph across architectures;
+    (right) box plot of the 13 thigh-muscle Dice values per architecture."""
+    archs = [("unet_r34", "U-Net"), ("unetpp_r34", "U-Net++"), ("deeplabv3p_r34", "DeepLabV3+"),
+             ("segformer_b1", "SegFormer"), ("unet_hrnet18", "HRNet-W18")]
+    colors = ["#1f77b4", "#2ca02c", "#ff7f0e", "#9467bd", "#d62728"]
+    fig, (axA, axB) = plt.subplots(1, 2, figsize=(13, 5.2))
+
+    # ---- AATTCT-IDS: line graph, SAT and VAT vs architecture ----
+    sat, vat, xlab = [], [], []
+    for m, s in archs:
+        f = os.path.join(C.RESULTS, f"aattct_{m}.json")
+        if not os.path.exists(f):
+            continue
+        d = json.load(open(f))["test_dice_per_class"]     # [bg, SAT, VAT]
+        sat.append(d[1]); vat.append(d[2]); xlab.append(s)
+    xi = np.arange(len(xlab))
+    axA.plot(xi, sat, "-o", color="#1f77b4", lw=2.2, ms=8, label="SAT")
+    axA.plot(xi, vat, "-s", color="#d62728", lw=2.2, ms=8, label="VAT")
+    for i in xi:
+        axA.annotate(f"{sat[i]:.3f}", (i, sat[i]), textcoords="offset points",
+                     xytext=(0, 9), ha="center", fontsize=8.5, color="#1f77b4")
+        axA.annotate(f"{vat[i]:.3f}", (i, vat[i]), textcoords="offset points",
+                     xytext=(0, -14), ha="center", fontsize=8.5, color="#d62728")
+    axA.set_xticks(xi); axA.set_xticklabels(xlab, rotation=25, ha="right", fontsize=10.5)
+    axA.set_ylabel("Dice", fontsize=12)
+    axA.set_title("AATTCT-IDS (CT): SAT and VAT", fontsize=13)
+    axA.set_ylim(0.86, 0.99); axA.grid(alpha=0.3)
+    axA.legend(fontsize=11, loc="lower left", frameon=True)
+
+    # ---- Thigh MRI: box plot of the 13 per-muscle Dice per architecture ----
+    data, blab = [], []
+    for m, s in archs:
+        f = os.path.join(C.RESULTS, f"thigh_{m}.json")
+        if not os.path.exists(f):
+            continue
+        vals = [v for v in json.load(open(f))["test_dice_per_class"][1:] if v is not None]
+        data.append(vals); blab.append(s)
+    bp = axB.boxplot(data, patch_artist=True, showmeans=True, widths=0.6,
+                     medianprops=dict(color="#111827", lw=1.6),
+                     meanprops=dict(marker="D", markerfacecolor="white",
+                                    markeredgecolor="#111827", markersize=6),
+                     flierprops=dict(marker="o", markersize=4, markerfacecolor="#6b7280",
+                                     markeredgecolor="none", alpha=0.6))
+    for patch, c in zip(bp["boxes"], colors):
+        patch.set_facecolor(c); patch.set_alpha(0.35); patch.set_edgecolor(c)
+    axB.set_xticks(np.arange(1, len(blab) + 1)); axB.set_xticklabels(blab, rotation=25, ha="right", fontsize=10.5)
+    axB.set_ylabel("Per-muscle Dice", fontsize=12)
+    axB.set_title("Thigh MRI: distribution over 13 muscles", fontsize=13)
+    axB.set_ylim(0.65, 1.0); axB.grid(axis="y", alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(C.FIG, "perclass_dice.png"), dpi=200, bbox_inches="tight")
+    plt.close()
     print("wrote perclass_dice.png")
 
 
